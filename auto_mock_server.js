@@ -3,9 +3,11 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 var app;
+var resourcesExposed = [];
 
 //config
 var mockDirectory = "mocks";
+var reportingDirectory = "reporting";
 
 init();
 
@@ -14,7 +16,15 @@ function init(){
 	var port = process.argv[2] || 8000;
 	app.listen(port);
 
+
+	//expose angular.js reporting app
+	app.use('/reporting', express.static(__dirname + '/' + reportingDirectory));
+	console.log("\nvisit http://localhost:"+ port 
+		+ "/" + reportingDirectory +" to access the reporting app\n");
+
 	scanForMocks(path.join(__dirname, mockDirectory));
+
+	writeReport();
 }
 
 //recursively scan folder to find mocked resources to expose
@@ -40,5 +50,21 @@ function setUpMockedResource(dirPath){
 	console.log("setting up resource on path : " + resourcePath + ", method : " + options.method);
 	app[options.method](resourcePath, function(req, res) {
 	  res.send(mockedContent);
-	})
+	});
+	resourcesExposed.push({
+		resourcePath: resourcePath,
+		content: mockedContent,
+		options: options
+	});
+}
+
+function writeReport(){
+	var generatedDataFileName = "GeneratedData.js";
+	var angularFactorytemplate = "apiReport.factory('GeneratedData', function(){return {getData: function(){return $$$$;}}});"
+	var fileContent = angularFactorytemplate.replace("$$$$", JSON.stringify(resourcesExposed));
+	
+	fs.writeFileSync(
+		path.join(__dirname,reportingDirectory) + "\\app\\services\\" + generatedDataFileName,
+		fileContent,
+		"utf8");
 }

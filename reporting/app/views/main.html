@@ -1,0 +1,11 @@
+<div ng-repeat="resource in generatedData">
+  <h1>
+    Resource path: {{resource.resourcePath}}
+  </h1>
+  <h3>
+    Content: {{resource.content | json}}
+  </h3>
+  <h3>
+    options: {{resource.options | json}}
+  </h3>
+</div>
