@@ -2,3 +2,11 @@ div, span {
   font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
 }
 
+.doc-content {
+  max-width: 864px;
+  margin: auto;
+}
+
+.medium-margin{
+	margin: 20px;
+}

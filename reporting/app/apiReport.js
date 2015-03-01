@@ -1,1 +1,1 @@
-apiReport = angular.module("apiReport", ["ngAnimate","ngMaterial"]);
+apiReport = angular.module("apiReport", ["ngAnimate","ngMaterial","ngJsonExplorer"]);

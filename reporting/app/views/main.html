@@ -1,11 +1,17 @@
-<div ng-repeat="resource in generatedData">
-  <h1>
-    Resource path: {{resource.resourcePath}}
-  </h1>
-  <h3>
-    Content: {{resource.content | json}}
-  </h3>
-  <h3>
-    options: {{resource.options | json}}
-  </h3>
+<div class="doc-content">
+  <md-card ng-repeat="resource in generatedData" class="md-whiteframe-z2 medium-margin">
+    <md-content class="md-padding" >
+      <h2>
+        {{resource.resourcePath}}
+      </h2>
+      <h3>
+        Content: 
+        <json-explorer data="resource.content"></json-explorer>
+      </h3>
+      <h3>
+        options:
+        <json-explorer data="resource.options"></json-explorer>
+      </h3>
+    </md-content>
+  </md-card>
 </div>

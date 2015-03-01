@@ -53,7 +53,7 @@ function setUpMockedResource(dirPath){
 	});
 	resourcesExposed.push({
 		resourcePath: resourcePath,
-		content: mockedContent,
+		content: JSON.parse(mockedContent),
 		options: options
 	});
 }
