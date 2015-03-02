@@ -2,6 +2,20 @@ div, span {
   font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
 }
 
+h2.api-title {
+  float:left;
+}
+
+h3.api-content {
+  clear:both;
+}
+
+h4.pastille {
+  float:right;
+  background-color: rgb(253, 153, 20);
+  padding: 5px;
+}
+
 .doc-content {
   max-width: 864px;
   margin: auto;

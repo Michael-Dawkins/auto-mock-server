@@ -5,24 +5,24 @@ var _ = require('underscore');
 var app;
 var resourcesExposed = [];
 
+// global config
 var configFileContents;
+// try to fetch config.json
 try {
   configFileContents = JSON.parse(fs.readFileSync("config.json", "utf8"));
   var mockDirectory = configFileContents.mockDirectory;
   var reportingDirectory = configFileContents.reportingDirectory;
+  //catch exceptions
 } catch (e) {
+	//config.json not found
 	if (e.code === 'ENOENT') {
 	  console.log('Config file not found!');
 	} else {
 	  throw e;
 	}
+	//exit process with failure code
 	process.exit(1);
 }
-
-//var configFileContents = JSON.parse(fs.readFileSync("config.json", "utf8"));
-
-//config
-
 
 init();
 
@@ -58,17 +58,20 @@ function scanForMocks(dirPath){
 
 function setUpMockedResource(dirPath){
 	var resourcePath = dirPath.replace(__dirname + "\\" + mockDirectory + "\\", '');
-	resourcePath = "/" + resourcePath;
+	var dirName = path.dirname(resourcePath);
+	var methodName = path.basename(dirPath);
+	resourcePath = "/" + dirName;
 	var mockedContent = fs.readFileSync(path.join(dirPath, "mock.json"), "utf8");
 	var options = JSON.parse(fs.readFileSync(path.join(dirPath, "config.json"), "utf8"));
 
-	console.log("setting up resource on path : " + resourcePath + ", method : " + options.method);
-	app[options.method](resourcePath, function(req, res) {
+	console.log("setting up resource on path : " + resourcePath + ", method : " + methodName);
+	app[methodName.toLowerCase()](resourcePath, function(req, res) {
 	  res.send(mockedContent);
 	});
 	resourcesExposed.push({
 		resourcePath: resourcePath,
 		content: JSON.parse(mockedContent),
+		method: methodName,
 		options: options
 	});
 }

@@ -15,10 +15,11 @@
   ng-repeat="resource in generatedData | filter:{resourcePath: search.searchText}" 
   class="md-whiteframe-z2 medium-margin fast-anim">
     <md-content class="md-padding" >
-      <h2>
+      <h2 class="api-title">
         <i class="fa fa-cloud"></i> {{resource.resourcePath}}
       </h2>
-      <h3>
+      <h4 class="pastille">{{resource.method}}</h2>
+      <h3 class="api-content">
         <i class="fa fa-database"></i> Content: 
         <json-explorer data="resource.content"></json-explorer>
       </h3>
