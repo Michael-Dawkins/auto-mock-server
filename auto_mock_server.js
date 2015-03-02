@@ -5,9 +5,11 @@ var _ = require('underscore');
 var app;
 var resourcesExposed = [];
 
+var configFileContents = JSON.parse(fs.readFileSync("config.json", "utf8"));
+
 //config
-var mockDirectory = "mocks";
-var reportingDirectory = "reporting";
+var mockDirectory = configFileContents.mockDirectory;
+var reportingDirectory = configFileContents.reportingDirectory;
 
 init();
 
