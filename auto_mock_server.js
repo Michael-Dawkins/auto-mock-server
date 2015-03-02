@@ -58,13 +58,18 @@ function scanForMocks(dirPath){
 
 function setUpMockedResource(dirPath){
 	var resourcePath = dirPath.replace(__dirname + "\\" + mockDirectory + "\\", '');
-	var dirName = path.dirname(resourcePath);
-	var methodName = path.basename(dirPath);
+	var pathArray = resourcePath.split( '\\' );
+	var versionApi = pathArray[0];
+	//var dirName = path.dirname(resourcePath);
+	var dirName = pathArray[1];
+	//var methodName = path.basename(dirPath);
+	var methodName = pathArray[2];
 	resourcePath = "/" + dirName;
+
 	var mockedContent = fs.readFileSync(path.join(dirPath, "mock.json"), "utf8");
 	var options = JSON.parse(fs.readFileSync(path.join(dirPath, "config.json"), "utf8"));
 
-	console.log("setting up resource on path : " + resourcePath + ", method : " + methodName);
+	console.log("setting up resource on path : " + resourcePath + ", method : " + methodName + ", version " + versionApi);
 	app[methodName.toLowerCase()](resourcePath, function(req, res) {
 	  res.send(mockedContent);
 	});
@@ -72,6 +77,7 @@ function setUpMockedResource(dirPath){
 		resourcePath: resourcePath,
 		content: JSON.parse(mockedContent),
 		method: methodName,
+		version: versionApi,
 		options: options
 	});
 }
@@ -79,6 +85,7 @@ function setUpMockedResource(dirPath){
 function writeReport(){
 	var generatedDataFileName = "GeneratedData.js";
 	var angularFactorytemplate = "apiReport.factory('GeneratedData', function(){return {getData: function(){return $$$$;}}});"
+
 	var fileContent = angularFactorytemplate.replace("$$$$", JSON.stringify(resourcesExposed));
 	
 	fs.writeFileSync(
