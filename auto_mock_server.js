@@ -5,11 +5,24 @@ var _ = require('underscore');
 var app;
 var resourcesExposed = [];
 
-var configFileContents = JSON.parse(fs.readFileSync("config.json", "utf8"));
+var configFileContents;
+try {
+  configFileContents = JSON.parse(fs.readFileSync("config.json", "utf8"));
+  var mockDirectory = configFileContents.mockDirectory;
+  var reportingDirectory = configFileContents.reportingDirectory;
+} catch (e) {
+	if (e.code === 'ENOENT') {
+	  console.log('Config file not found!');
+	} else {
+	  throw e;
+	}
+	process.exit(1);
+}
+
+//var configFileContents = JSON.parse(fs.readFileSync("config.json", "utf8"));
 
 //config
-var mockDirectory = configFileContents.mockDirectory;
-var reportingDirectory = configFileContents.reportingDirectory;
+
 
 init();
 
