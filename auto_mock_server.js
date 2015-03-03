@@ -90,11 +90,11 @@ function setUpMockedResource(dirPath){
 
 	console.log("setting up " + (isJSONValid ? 'valid' : 'invalid') + " resource on path : " + resourcePathWithAPIVersion + ", method : " + methodName + ", version " + versionApi);
 	
-	// we expose our WS here
+	// expose our WS, using the appropriate method
 	app[methodName.toLowerCase()](resourcePathWithAPIVersion, function(req, res) {
 	  res.send(mockedContent);
 	});
-	// we fill our array with our mocks
+	// fill our array with our mocks
 	resourcesExposed.push({
 		resourcePath: resourcePath,
 		content: JSON.parse(mockedContent),
@@ -106,6 +106,7 @@ function setUpMockedResource(dirPath){
 }
 
 function writeReport(){
+	// used to write the report in a specific file
 	var generatedDataFileName = "GeneratedData.js";
 	var angularFactorytemplate = "apiReport.factory('GeneratedData', function(){return {getData: function(){return $$$$;}}});"
 
@@ -118,6 +119,6 @@ function writeReport(){
 }
 
 function checkJSONSchema(data, schema) {
-	// JSON validation by comparing to its schema
+	// JSON validation by comparing to its own schema
 	return tv4.validate(JSON.parse(data), JSON.parse(schema));
 }

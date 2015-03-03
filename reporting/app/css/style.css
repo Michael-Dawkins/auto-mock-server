@@ -94,3 +94,7 @@ form.api-version,form.method-name {
 .ng-leave {
     opacity: 1;
 }
+
+.md-button.md-default-theme.md-raised {
+  margin: 15px 5px;
+}

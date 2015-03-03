@@ -4,14 +4,16 @@
   </h2>
   <form name="apiForm" class="api-version" flex>
     <div ng-repeat="version in apiArray">
-      <md-checkbox ng-model="checkboxModelsApi[version]" class="api-version-elem"> {{ version | number:1 }}
+      <md-checkbox ng-model="checkboxModelsApi[version]" ng-disabled="hasToShowLatestVersionsOnly" class="api-version-elem"> {{ version | number:1 }}
     </div>
   </form>
   <form name="methodForm" class="method-name" flex>
     <div ng-repeat="method in methodsArray">
-      <md-checkbox ng-model="checkboxModelsMethod[method]" class="api-version-elem"> {{ method }}
+      <md-checkbox ng-model="checkboxModelsMethod[method]" ng-disabled="hasToShowLatestVersionsOnly" class="api-version-elem"> {{ method }}
     </div>
   </form>
+  <md-button class="md-raised" ng-class="unFoldMode ? 'md-warn' : ''" ng-click="toggleUnFoldMode()">Print mode</md-button>
+  <md-button class="md-raised" ng-class="hasToShowLatestVersionsOnly ? 'md-warn' : ''" ng-click="showLatestVersionsOnly()">Latest versions only</md-button>
   <md-card style="background-color: white" flex="20">
     <md-input-container style="padding-bottom: 0px;">
       <label><i class="fa fa-search"></i> Resource name</label>
@@ -34,11 +36,11 @@
       <h4 class="pastille invalid" ng-if="!resource.valid"><i class="fa fa-times" style="color:white"></i> Invalid</h4>
       <h3 class="api-content">
         <i class="fa fa-database"></i> Content: 
-        <json-explorer data="resource.content"></json-explorer>
+        <json-explorer data="resource.content" collapsed="!unFoldMode"></json-explorer>
       </h3>
       <h3>
         <i class="fa fa-cogs"></i> options:
-        <json-explorer data="resource.options"></json-explorer>
+        <json-explorer data="resource.options" collapsed="!unFoldMode"></json-explorer>
       </h3>
     </md-content>
   </md-card>
