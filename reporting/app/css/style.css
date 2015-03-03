@@ -2,6 +2,10 @@ div, span {
   font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
 }
 
+h2.md-toolbar-tools {
+  margin-top: 7px;
+}
+
 h2.api-title {
   float:left;
   margin-bottom: 15px;
@@ -23,6 +27,12 @@ h4.method {
 
 h4.version {
   background-color: rgb(232, 135, 7);
+}
+
+h4.sprint {
+  background-color: rgb(57, 128, 221);
+  color:white;
+  margin-right:10px;
 }
 
 form.api-version {

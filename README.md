@@ -16,6 +16,6 @@ By default, the server runs on port 8000, you may pass an argument to the app to
 
 Note : 
 You may use a directory tree structure to express a RESTFULL API, for example, if you create the folder "user" under the "mocks" folder,
-any resource inside the "user" folder will be exposed at localhost:8000/user
+any resource inside the "user" folder will be exposed at localhost:8000/1.0/user
 This works recursively, so you can expose resources like this :
-localhost:8000/user/login/admin
+localhost:8000/1.0/user/login/admin

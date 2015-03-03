@@ -24,6 +24,7 @@
       </h2>
       <h4 class="pastille method">{{resource.method}}</h2>
       <h4 class="pastille version">{{resource.version}}</h2>
+      <h4 class="pastille sprint" ng-if="resource.options.sprint">Sprint {{ resource.options.sprint }}</h4>
       <h3 class="api-content">
         <i class="fa fa-database"></i> Content: 
         <json-explorer data="resource.content"></json-explorer>
