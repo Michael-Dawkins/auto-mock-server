@@ -1,31 +1,31 @@
 # auto-mock-server
 A simple mock server that reads and exposes resources with minimal config
 
-How to setup the project :
+## How to setup the project :
 type the following command :
 *bower install
 *node install
 
-How to launch the server :
+## How to launch the server :
 type the following command :
 * node auto_mock_server.js
 * shorthand : node start
 
-How to expose a mocked resource :
+## How to expose a mocked resource :
 A mock is currently composed of two files :
 * config.json --> a resource config file, currently only containing the http method to expose the resource on
 * mock.json --> the content to be served
 * schema.json -> the json schema related to mock.json
 
-How to configure the port :
+## How to configure the port :
 By default, the server runs on port 8000, you may pass an argument to the app to change the used port :
 * node auto_mock_server.js 8001
 
-How to organize your mocks :
-*/mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}
-*/mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/config.json
-*/mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/mock.json
-*/mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema.json
+## How to organize your mocks :
+* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}
+* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/config.json
+* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/mock.json
+* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema.json
 
 Note : 
 You may use a directory tree structure to express a RESTFULL API, for example, if you create the folder "user" under the "mocks" folder,
