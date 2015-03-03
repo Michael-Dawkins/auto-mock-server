@@ -1,0 +1,27 @@
+{
+  "name": "auto-mock-server",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Michael-Dawkins/auto-mock-server",
+  "authors": [
+    "lorenzo.blyweert <lorenzo.blyweert@capgemini.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.14",
+    "angular-animate": "~1.3.14",
+    "angular-markdown-directive": "~0.3.1",
+    "angular-sanitize": "~1.3.14",
+    "showdown": "~0.4.0",
+    "angular-aria": "~1.3.14",
+    "angular-material": "~0.8.2",
+    "underscore": "~1.8.2",
+    "markdown": "~0.5.0"
+  }
+}
