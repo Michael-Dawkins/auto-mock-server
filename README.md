@@ -26,6 +26,7 @@ By default, the server runs on port 8000, you may pass an argument to the app to
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/config.json
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/mock.json
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema.json
+* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/README.md
 
 Note : 
 You may use a directory tree structure to express a RESTFULL API, for example, if you create the folder "user" under the "mocks" folder,
