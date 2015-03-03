@@ -57,13 +57,22 @@ function scanForMocks(dirPath){
 }
 
 function setUpMockedResource(dirPath){
+	// remove base path
 	var resourcePath = dirPath.replace(__dirname + "\\" + mockDirectory + "\\", '');
+
+	// get first param : 1.0, 1.1 ...
 	var pathArray = resourcePath.split( '\\' );
 	var versionApi = pathArray[0];
-	//var dirName = path.dirname(resourcePath);
-	var dirName = pathArray[1];
-	//var methodName = path.basename(dirPath);
-	var methodName = pathArray[2];
+
+	// replace '\' with '/'
+	resourcePath = resourcePath.replace(new RegExp('\\' + path.sep, 'g'), '/');
+	// remove API version from path
+	resourcePath = resourcePath.replace(versionApi + '/', '');
+	// get directory name : 1.0/articles/user ...
+	var dirName = path.dirname(resourcePath);
+
+	// get method name : GET, POST...
+	var methodName = path.basename(dirPath);
 	resourcePath = "/" + dirName;
 
 	var mockedContent = fs.readFileSync(path.join(dirPath, "mock.json"), "utf8");

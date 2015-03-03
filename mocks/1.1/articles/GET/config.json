@@ -1,3 +1,9 @@
 {
+	"sprint": 1,
+	"parameters" : 
+		{
+			"option" : "required",
+			"option2" : "not required"
+		}
 	
 }
