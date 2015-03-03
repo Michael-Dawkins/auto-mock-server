@@ -18,22 +18,40 @@ apiReport.controller("MainCtrl", function($scope, GeneratedData){
       .map(function(resource){return resource.version})
       .uniq()
       .value();
-    $scope.checkboxModels = {};
+    $scope.methodsArray = _.chain($scope.generatedData)
+      .map(function(resource){return resource.method})
+      .uniq()
+      .value();
+    $scope.checkboxModelsApi = {};
     $scope.apiArray.forEach(function(api){
-        $scope.checkboxModels[api] = true;
+        $scope.checkboxModelsApi[api] = true;
+    });
+    $scope.checkboxModelsMethod = {};
+    $scope.methodsArray.forEach(function(method){
+        $scope.checkboxModelsMethod[method] = true;
     });
 
     $scope.filterResourcesBasedOnVersion = function(resource){
       var activatedVersionNames = [];
-      _.forEach($scope.checkboxModels, function(checkboxModel, versionName){
-        if (checkboxModel){
+      _.forEach($scope.checkboxModelsApi, function(checkboxModelApi, versionName){
+        if (checkboxModelApi){
             activatedVersionNames.push(versionName);
         }
       })
 
+      var activatedMethodNames = [];
+      _.forEach($scope.checkboxModelsMethod, function(checkboxModelMethod, methodName){
+        if (checkboxModelMethod){
+            activatedMethodNames.push(methodName);
+        }
+      })
+
+
       var resourcePathFilter = $scope.search.searchText;
 
-      return (_.contains(activatedVersionNames, resource.version) && resource.resourcePath.indexOf(resourcePathFilter) !== -1)
+      return (_.contains(activatedVersionNames, resource.version) && 
+        _.contains(activatedMethodNames, resource.method) &&
+        resource.resourcePath.indexOf(resourcePathFilter) !== -1)
 
     }
   }

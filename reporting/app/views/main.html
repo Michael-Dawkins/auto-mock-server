@@ -4,7 +4,12 @@
   </h2>
   <form name="apiForm" class="api-version" flex>
     <div ng-repeat="version in apiArray">
-      <md-checkbox ng-model="checkboxModels[version]" ng-change="checkChange()" class="api-version-elem"> {{ version | number:1 }}
+      <md-checkbox ng-model="checkboxModelsApi[version]" class="api-version-elem"> {{ version | number:1 }}
+    </div>
+  </form>
+  <form name="methodForm" class="method-name" flex>
+    <div ng-repeat="method in methodsArray">
+      <md-checkbox ng-model="checkboxModelsMethod[method]" class="api-version-elem"> {{ method }}
     </div>
   </form>
   <md-card style="background-color: white" flex="20">
@@ -25,6 +30,8 @@
       <h4 class="pastille method">{{resource.method}}</h2>
       <h4 class="pastille version">{{resource.version}}</h2>
       <h4 class="pastille sprint" ng-if="resource.options.sprint">Sprint {{ resource.options.sprint }}</h4>
+      <h4 class="pastille valid" ng-if="resource.valid"><i class="fa fa-check" style="color:white"></i> Valid</h4>
+      <h4 class="pastille invalid" ng-if="!resource.valid"><i class="fa fa-times" style="color:white"></i> Invalid</h4>
       <h3 class="api-content">
         <i class="fa fa-database"></i> Content: 
         <json-explorer data="resource.content"></json-explorer>

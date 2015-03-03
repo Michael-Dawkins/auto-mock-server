@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "username": {
+      "id": "http://jsonschema.net/username",
+      "type": "string",
+      "default": "mon username de test"
+    },
+    "email": {
+      "id": "http://jsonschema.net/email",
+      "type": "string",
+      "default": "michael.dawkins@capgemini.com"
+    }
+  },
+  "required": [
+    "username",
+    "email"
+  ]
+}

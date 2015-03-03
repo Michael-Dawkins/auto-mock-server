@@ -2,6 +2,7 @@ var express = require('express')
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+var tv4 = require('tv4');
 var app;
 var resourcesExposed = [];
 
@@ -31,7 +32,6 @@ function init(){
 	var port = process.argv[2] || 8000;
 	app.listen(port);
 
-
 	//expose angular.js reporting app
 	app.use('/reporting', express.static(__dirname + '/' + reportingDirectory));
 	console.log("\nvisit http://localhost:"+ port 
@@ -45,12 +45,16 @@ function init(){
 //recursively scan folder to find mocked resources to expose
 function scanForMocks(dirPath){
 	var dirContents = fs.readdirSync(dirPath);
+
+	// we look for config.json
 	if (_.contains(dirContents, "config.json")){
 		setUpMockedResource(dirPath);
 	}
 	var directories = _.filter(dirContents, function(dirContent){
 		return fs.statSync(path.join(dirPath, dirContent)).isDirectory();
 	});
+
+	// recursive scan through folders
 	directories.forEach(function(directory){
 		scanForMocks(path.join(dirPath, directory));
 	});
@@ -68,25 +72,35 @@ function setUpMockedResource(dirPath){
 	resourcePath = resourcePath.replace(new RegExp('\\' + path.sep, 'g'), '/');
 	// remove API version from path
 	resourcePath = resourcePath.replace(versionApi + '/', '');
-	// get directory name : 1.0/articles/user ...
+	// get directory name : articles/user ...
 	var dirName = path.dirname(resourcePath);
 
 	// get method name : GET, POST...
 	var methodName = path.basename(dirPath);
 	resourcePath = "/" + dirName;
+	resourcePathWithAPIVersion = "/" + versionApi + resourcePath;
 
+	// get mock.json and config.json contents
 	var mockedContent = fs.readFileSync(path.join(dirPath, "mock.json"), "utf8");
 	var options = JSON.parse(fs.readFileSync(path.join(dirPath, "config.json"), "utf8"));
 
-	console.log("setting up resource on path : " + resourcePath + ", method : " + methodName + ", version " + versionApi);
-	app[methodName.toLowerCase()](resourcePath, function(req, res) {
+	// get schema.json content and compare mock.json to check JSON validity
+	var mockedSchema = fs.readFileSync(path.join(dirPath, "schema.json"), "utf8");
+	var isJSONValid = checkJSONSchema(mockedContent, mockedSchema);
+
+	console.log("setting up " + (isJSONValid ? 'valid' : 'invalid') + " resource on path : " + resourcePathWithAPIVersion + ", method : " + methodName + ", version " + versionApi);
+	
+	// we expose our WS here
+	app[methodName.toLowerCase()](resourcePathWithAPIVersion, function(req, res) {
 	  res.send(mockedContent);
 	});
+	// we fill our array with our mocks
 	resourcesExposed.push({
 		resourcePath: resourcePath,
 		content: JSON.parse(mockedContent),
 		method: methodName,
 		version: versionApi,
+		valid: isJSONValid,
 		options: options
 	});
 }
@@ -101,4 +115,9 @@ function writeReport(){
 		path.join(__dirname,reportingDirectory) + "\\app\\services\\" + generatedDataFileName,
 		fileContent,
 		"utf8");
+}
+
+function checkJSONSchema(data, schema) {
+	// JSON validation by comparing to its schema
+	return tv4.validate(JSON.parse(data), JSON.parse(schema));
 }
