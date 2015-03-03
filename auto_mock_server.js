@@ -84,6 +84,17 @@ function setUpMockedResource(dirPath){
 	var mockedContent = fs.readFileSync(path.join(dirPath, "mock.json"), "utf8");
 	var options = JSON.parse(fs.readFileSync(path.join(dirPath, "config.json"), "utf8"));
 
+	var readmeContent;
+	// try to fetch config.json
+	try {
+	  readmeContent = fs.readFileSync(path.join(dirPath, "README.md"), "utf8");
+	  //catch exceptions
+	} catch (e) {
+		//config.json not found
+		if (e.code === 'ENOENT') {
+		  console.log('README file not found!');
+		}
+	}
 	// get schema.json content and compare mock.json to check JSON validity
 	var mockedSchema = fs.readFileSync(path.join(dirPath, "schema.json"), "utf8");
 	var isJSONValid = checkJSONSchema(mockedContent, mockedSchema);
@@ -98,6 +109,7 @@ function setUpMockedResource(dirPath){
 	resourcesExposed.push({
 		resourcePath: resourcePath,
 		content: JSON.parse(mockedContent),
+		readme: readmeContent,
 		method: methodName,
 		version: versionApi,
 		valid: isJSONValid,

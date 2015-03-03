@@ -56,6 +56,10 @@ form.api-version,form.method-name {
   padding-top: 12px;
 }
 
+md-divider.md-default-theme {
+  margin-bottom: 7px;
+}
+
 .api-version-elem {
   float: left;
   margin:0;
