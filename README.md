@@ -27,6 +27,7 @@ By default, the server runs on port 8000, you may pass an argument to the app to
 * schema-mock.json : mock content JSON schema
 * schema-payload.json : payload content JSON schema
 * README.md : description of the mock of whatever in md format
+* images
 
 ## How to organize your mocks :
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}
@@ -35,6 +36,7 @@ By default, the server runs on port 8000, you may pass an argument to the app to
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema-mock.json
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema-payload.json
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/README.md
+* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/{image}.["png", "jpeg", "jpeg", "gif"]
 
 Note : 
 You may use a directory tree structure to express a RESTFULL API, for example, if you create the folder "user" under the "mocks" folder,
