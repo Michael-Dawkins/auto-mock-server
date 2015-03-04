@@ -1,4 +1,5 @@
 var express = require('express')
+var bodyParser = require('body-parser')
 var fs = require('fs');
 var path = require('path');
 var app;
@@ -36,6 +37,7 @@ function init(){
 
 	//expose angular.js reporting app
 	app.use('/reporting', express.static(__dirname + '/' + reportingDirectory));
+	app.use(bodyParser.json())
 	console.log("\nvisit http://localhost:"+ port 
 		+ "/" + reportingDirectory +" to access the reporting app\n");
 

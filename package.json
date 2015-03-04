@@ -4,11 +4,12 @@
   "description": "A mock server using express",
   "author": "Michael Dawkins",
   "dependencies": {
+    "body-parser": "^1.12.0",
     "express": "^4.12.0",
     "tv4": "^1.1.9",
     "underscore": "^1.8.2"
   },
   "scripts": {
-  	"start": "node auto_mock_server.js"
+    "start": "node auto_mock_server.js"
   }
 }

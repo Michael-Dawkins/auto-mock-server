@@ -30,7 +30,6 @@ apiReport.factory("ResourceFilter", function(ResourcesModel){
 				.map(function(resource){return resource.resourcePath})
 				.uniq()
 				.value();
-			var latestVersions = [];
 
 			var latestResources = [];
 			model.resourcePathArray.forEach(function(resourcePath){
