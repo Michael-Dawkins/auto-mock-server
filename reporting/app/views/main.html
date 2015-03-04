@@ -35,6 +35,7 @@
       <h4 class="pastille valid" ng-if="resource.valid"><i class="fa fa-check" style="color:white"></i> Valid</h4>
       <h4 class="pastille invalid" ng-if="!resource.valid"><i class="fa fa-times" style="color:white"></i> Invalid</h4>
       <h3 class="api-content">
+      <img ng-repeat="image in resource.images" ng-src="{{ image }}" class="mock-image" />
       <md-divider ng-if="resource.readme"></md-divider>
       <div btf-markdown="resource.readme"></div>
       <md-divider ng-if="resource.readme"></md-divider>

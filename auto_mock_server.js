@@ -36,12 +36,13 @@ function init(){
 	}
 
 	//expose angular.js reporting app
-	app.use('/reporting', express.static(__dirname + '/' + reportingDirectory));
+	app.use('/reporting', express.static(path.join(__dirname, reportingDirectory)));
+	//expose images folder
 	app.use(bodyParser.json())
 	console.log("\nvisit http://localhost:"+ port 
 		+ "/" + reportingDirectory +" to access the reporting app\n");
 
-	scanForMocks.scanForMocks(path.join(__dirname, mockDirectory), mockDirectory, app, resourcesExposed);
+	scanForMocks.scanForMocks(path.join(__dirname, mockDirectory), mockDirectory, app, resourcesExposed, reportingDirectory);
 
 	writeReport.writeReport(resourcesExposed, reportingDirectory);
 }
