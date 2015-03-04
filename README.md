@@ -21,11 +21,19 @@ A mock is currently composed of two files :
 By default, the server runs on port 8000, you may pass an argument to the app to change the used port :
 * node auto_mock_server.js 8001
 
+## Mock files :
+* config.json : informations about the mock
+* mock.json : mock content
+* schema-mock.json : mock content JSON schema
+* schema-payload.json : payload content JSON schema
+* README.md : description of the mock of whatever in md format
+
 ## How to organize your mocks :
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/config.json
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/mock.json
-* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema.json
+* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema-mock.json
+* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema-payload.json
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/README.md
 
 Note : 
