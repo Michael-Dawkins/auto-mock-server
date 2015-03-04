@@ -1,0 +1,19 @@
+          <h2 class="api-title">
+            <i class="fa fa-cloud"></i> {{resource.resourcePath}}
+          </h2>
+          <h4 class="pastille method">{{resource.method}}</h2>
+          <h4 class="pastille version">{{resource.version}}</h2>
+          <h4 class="pastille sprint" ng-if="resource.options.sprint">Sprint {{ resource.options.sprint }}</h4>
+          <h4 class="pastille valid" ng-if="resource.valid"><i class="fa fa-check" style="color:white"></i> Valid</h4>
+          <h4 class="pastille invalid" ng-if="!resource.valid"><i class="fa fa-times" style="color:white"></i> Invalid</h4>
+          <h3 class="api-content">
+            <md-divider ng-if="resource.readme"></md-divider>
+            <div btf-markdown="resource.readme"></div>
+            <md-divider ng-if="resource.readme"></md-divider>
+            <i class="fa fa-database"></i> Content: 
+            <json-explorer data="resource.content" collapsed="!model.unFoldMode"></json-explorer>
+          </h3>
+          <h3>
+            <i class="fa fa-cogs"></i> options:
+            <json-explorer data="resource.options" collapsed="!model.unFoldMode"></json-explorer>
+          </h3>

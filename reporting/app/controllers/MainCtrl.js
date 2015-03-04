@@ -5,7 +5,7 @@ apiReport.controller("MainCtrl", function($scope, ResourceFilter, ResourcesModel
   function init(){
     $scope.model = ResourcesModel.getModel();
     $scope.filterResourcesBasedOnVersion = ResourceFilter.filterResourcesBasedOnVersion;
-
+    $scope.isThereImages = isThereImages;
     exposeToggleMethods();
     exposeSearchMethods();
   }
@@ -18,6 +18,10 @@ apiReport.controller("MainCtrl", function($scope, ResourceFilter, ResourcesModel
     $scope.toggleUnFoldMode = function() {
       ResourcesModel.getModel().unFoldMode = !ResourcesModel.getModel().unFoldMode;
     };
+  }
+
+  function isThereImages(resource) {
+      return resource.images.length > 0;
   }
 
   function exposeSearchMethods() {

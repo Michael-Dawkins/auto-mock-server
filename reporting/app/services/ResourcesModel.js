@@ -1,5 +1,5 @@
 apiReport.factory("ResourcesModel", function(GeneratedData){
-	
+
 	var model = {};
 
 	init();

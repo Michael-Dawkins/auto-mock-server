@@ -48,9 +48,19 @@ module.exports = {
 		}
 	}
 
+	var schemas = {mock:"",payload:""};
+
 	// get schema.json content and compare mock.json to check JSON validity
 	var mockedSchema = fs.readFileSync(path.join(dirPath, "schema-mock.json"), "utf8");
+	var payloadSchema = fs.readFileSync(path.join(dirPath, "schema-payload.json"), "utf8");
 	var isJSONValid = checkJSONSchema.checkJSONSchema(JSON.parse(mockedContent), mockedSchema).valid;
+
+	if (mockedSchema) {
+		schemas.mock = mockedSchema;
+	}
+	if (payloadSchema) {
+		schemas.payload = payloadSchema;
+	}
 
 	// get images in folder
 	var imageTypes = [".png", ".jpeg", ".jpg", ".gif"];
@@ -72,17 +82,7 @@ module.exports = {
 		// send response
 	  res.send(mockedContent);
 	  if (methodName == "POST") {
-	  	var payloadSchema;
-		// try to fetch config.json
-		try {
-		  payloadSchema = fs.readFileSync(path.join(dirPath, "schema-payload.json"), "utf8");
-		  //catch exceptions
-		} catch (e) {
-			//config.json not found
-			if (e.code === 'ENOENT') {
-			  console.log('Payload schema not found! Cannot validate payload.');
-			}
-		}
+
 	  	// compare POST payload to mock JSON schema
 	  	console.log(resourcePathWithAPIVersion, " payload body : ",req.body);
 	  	if (payloadSchema) {
@@ -106,6 +106,7 @@ module.exports = {
 		version: versionApi,
 		valid: isJSONValid,
 		images: imageFiles,
+		schemas: schemas,
 		options: options
 	});
 	return resourcesExposed;

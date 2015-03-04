@@ -56,10 +56,6 @@ h4.invalid {
   margin-right: 7px;
 }
 
-img.mock-image {
-  margin-bottom: 20px;
-}
-
 md-divider.md-default-theme {
   margin-bottom: 7px;
 }
@@ -81,7 +77,7 @@ md-divider.md-default-theme {
 
 .ng-enter, 
 .ng-leave { 
-    transition: 1200ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
+    transition: 300ms cubic-bezier(0.250, 0.460, 0.450, 0.940) all;
     position: relative;
     display: block;
 } 
