@@ -3,27 +3,27 @@
     <span>Mocked API reporting</span>
   </h2>
   <form name="apiForm" class="api-version" flex>
-    <div ng-repeat="version in apiArray">
-      <md-checkbox ng-model="checkboxModelsApi[version]" ng-disabled="hasToShowLatestVersionsOnly" class="api-version-elem"> {{ version | number:1 }}
+    <div ng-repeat="version in model.apiArray">
+      <md-checkbox ng-model="model.checkboxModelsApi[version]" ng-disabled="model.hasToShowLatestVersionsOnly" class="api-version-elem"> {{ version | number:1 }}
     </div>
   </form>
   <form name="methodForm" class="method-name" flex>
-    <div ng-repeat="method in methodsArray">
-      <md-checkbox ng-model="checkboxModelsMethod[method]" ng-disabled="hasToShowLatestVersionsOnly" class="api-version-elem"> {{ method }}
+    <div ng-repeat="method in model.methodsArray">
+      <md-checkbox ng-model="model.checkboxModelsMethod[method]" ng-disabled="model.hasToShowLatestVersionsOnly" class="api-version-elem"> {{ method }}
     </div>
   </form>
-  <md-button class="md-raised" ng-class="unFoldMode ? 'md-warn' : ''" ng-click="toggleUnFoldMode()">Print mode</md-button>
-  <md-button class="md-raised" ng-class="hasToShowLatestVersionsOnly ? 'md-warn' : ''" ng-click="showLatestVersionsOnly()">Latest versions only</md-button>
+  <md-button class="md-raised" ng-class="model.unFoldMode ? 'md-warn' : ''" ng-click="toggleUnFoldMode()">Print mode</md-button>
+  <md-button class="md-raised" ng-class="model.hasToShowLatestVersionsOnly ? 'md-warn' : ''" ng-click="showLatestVersionsOnly()">Latest versions only</md-button>
   <md-card style="background-color: white" flex="20">
     <md-input-container style="padding-bottom: 0px;">
       <label><i class="fa fa-search"></i> Resource name</label>
-      <input ng-model="search.searchText">
+      <input ng-model="model.search.searchText">
     </md-input-container>
   </md-card>
 </md-toolbar>
 <div class="doc-content">
   <md-card
-  ng-repeat="resource in generatedData | filter:{resourcePath: search.searchText} | filter:filterResourcesBasedOnVersion | orderBy:'-version'" 
+  ng-repeat="resource in model.generatedData | filter:{resourcePath: model.search.searchText} | filter:filterResourcesBasedOnVersion | orderBy:'-version'" 
   class="md-whiteframe-z2 medium-margin fast-anim">
     <md-content class="md-padding" >
       <h2 class="api-title">
@@ -39,17 +39,17 @@
       <div btf-markdown="resource.readme"></div>
       <md-divider ng-if="resource.readme"></md-divider>
         <i class="fa fa-database"></i> Content: 
-        <json-explorer data="resource.content" collapsed="!unFoldMode"></json-explorer>
+        <json-explorer data="resource.content" collapsed="!model.unFoldMode"></json-explorer>
       </h3>
       <h3>
         <i class="fa fa-cogs"></i> options:
-        <json-explorer data="resource.options" collapsed="!unFoldMode"></json-explorer>
+        <json-explorer data="resource.options" collapsed="!model.unFoldMode"></json-explorer>
       </h3>
     </md-content>
   </md-card>
   <md-card ng-hide="searchSuccess()">
     <md-content class="md-padding">
-      <h2>No result for resource path : {{search.searchText}}</h2>
+      <h2>No result for resource path : {{model.search.searchText}}</h2>
     </md-content>
   </md-card>
 </div>
