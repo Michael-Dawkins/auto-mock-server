@@ -163,7 +163,7 @@ module.exports = {
 				}
 			}
 			if (imageFiles) {
-				app.use('/reporting/mocks/' + fullResourcePath, express.static(path.join(__dirname, "mocks", fullResourcePath)));
+				app.use('/reporting/mocks/' + fullResourcePath, express.static(path.join(mockDirectory, fullResourcePath)));
 			}
 		}
 
