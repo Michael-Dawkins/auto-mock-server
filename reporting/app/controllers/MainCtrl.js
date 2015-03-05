@@ -1,4 +1,4 @@
-apiReport.controller("MainCtrl", function($scope, ResourceFilter, ResourcesModel){
+apiReport.controller("MainCtrl", function($scope, ResourceFilter, ResourcesModel, Lightbox){
 
   init();
 
@@ -7,9 +7,14 @@ apiReport.controller("MainCtrl", function($scope, ResourceFilter, ResourcesModel
     $scope.model = ResourcesModel.getModel();
     $scope.filterResourcesBasedOnVersion = ResourceFilter.filterResourcesBasedOnVersion;
     $scope.isThereImages = isThereImages;
+    $scope.openLightBox = openLightBox;
     exposeToggleMethods();
     exposeSearchMethods();
   }
+
+  function openLightBox(resource, index) {
+    Lightbox.openModal(resource.images, index);
+  };
 
   function exposeToggleMethods() {
     $scope.showLatestVersionsOnly = function() {

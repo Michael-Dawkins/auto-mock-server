@@ -102,3 +102,7 @@ md-divider.md-default-theme {
 .md-button.md-default-theme.md-raised {
   margin: 15px 5px;
 }
+
+.mock-image {
+  width: 33.33%;
+}
