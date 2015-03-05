@@ -42,7 +42,7 @@ function init(){
 	console.log("\nvisit http://localhost:"+ port 
 		+ "/" + reportingDirectory +" to access the reporting app\n");
 
-	scanForMocks.scanForMocks(path.join(__dirname, mockDirectory), mockDirectory, app, resourcesExposed, reportingDirectory);
+	scanForMocks.scanForMocks(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory);
 
 	writeReport.writeReport(resourcesExposed, reportingDirectory);
 }

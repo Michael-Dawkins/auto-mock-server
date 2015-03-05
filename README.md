@@ -2,9 +2,10 @@
 A simple mock server that reads and exposes resources with minimal config
 
 ## How to setup the project :
+* configure config.json located at the project root
 type the following command :
-*bower install
-*node install
+* bower install
+* node install
 
 ## How to launch the server :
 type the following command :

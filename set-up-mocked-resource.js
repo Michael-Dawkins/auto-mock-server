@@ -8,7 +8,7 @@ module.exports = {
   setUpMockedResource: function(dirPath, mockDirectory, app, resourcesExposed, reportingDirectory) {
     // remove base path
     //  resourcePath = 1.0\articles\GET
-	var resourcePath = dirPath.replace(__dirname + "\\" + mockDirectory + "\\", '');
+	var resourcePath = dirPath.replace(mockDirectory + "\\", '');
 	// get first param : 1.0, 1.1 ...
 	// pathArray = ["1.0", "articles", "GET"]
 	var pathArray = resourcePath.split( '\\' );
