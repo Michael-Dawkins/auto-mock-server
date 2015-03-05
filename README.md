@@ -33,22 +33,24 @@ By default, the server runs on port 8000, you may pass an argument to the app to
 * images
 
 ## How to organize your mocks :
-* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}
-* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/config.json
-* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/mock.json
-* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema-mock.json
-* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema-payload.json
-* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/http-codes.json
-* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/README.md
-* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/{image}.["png", "jpeg", "jpeg", "gif"]
-
+```
+/mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}
+/mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/config.json
+/mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/mock.json
+/mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema-mock.json
+/mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema-payload.json
+/mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/http-codes.json
+/mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/README.md
+/mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/{image}.["png", "jpeg", "jpeg", "gif"]
+```
 ## How to send a POST request with a payload
 * Using curl or a tool like Postman, you can send POST requests to a WS in the mock server.
 * Specify a payload in the body and it will be checked against the associated schema-payload.json
 * Check your Node.js console to see if the request is valid or not
 
-Note : 
-You may use a directory tree structure to express a RESTFULL API, for example, if you create the folder "user" under the "mocks" folder,
+
+*Note :
+You may use a directory tree structure to express a RESTFULL API. For example, if you create the folder "user" under the "mocks/1.0/" folder,
 any resource inside the "user" folder will be exposed at localhost:8000/1.0/user
 This works recursively, so you can expose resources like this :
-localhost:8000/1.0/user/login/admin
+localhost:8000/1.0/user/login/admin/...*
