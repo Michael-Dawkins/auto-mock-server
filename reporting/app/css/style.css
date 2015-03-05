@@ -5,7 +5,7 @@ div, span {
 form.api-version,form.method-name {
   float: right;
   margin: 0;
-  padding-top: 12px;
+  padding-top: 9px;
 }
 
 h2.md-toolbar-tools {
@@ -100,10 +100,27 @@ md-divider.md-default-theme {
 }
 
 .md-button.md-default-theme.md-raised {
-  margin: 15px 5px;
+  height: 37px;
+  margin: 17px 7px;
+}
+
+md-toolbar.md-default-theme {
+  position: fixed;
+  top: 0px;
+}
+
+md-card.search.md-default-theme {
+  background-color: white;
+  position: fixed;
+  top: 78px;
+  right: 0px;
 }
 
 .mock-image {
   width: 33.33%;
   cursor: pointer;
+}
+
+.doc-content {
+  padding-top: 100px;
 }

@@ -12,9 +12,9 @@
       <md-checkbox ng-model="model.checkboxModelsMethod[method]" ng-disabled="model.hasToShowLatestVersionsOnly" class="api-version-elem"> {{ method }}
     </div>
   </form>
-  <md-button class="md-raised" ng-class="model.unFoldMode ? 'md-warn' : ''" ng-click="toggleUnFoldMode()" flex="10">Print mode</md-button>
-  <md-button class="md-raised" ng-class="model.hasToShowLatestVersionsOnly ? 'md-warn' : ''" ng-click="showLatestVersionsOnly()" flex="15">Latest versions only</md-button>
-  <md-card style="background-color: white" flex="15">
+  <md-button class="md-raised" ng-class="model.unFoldMode ? 'md-warn' : ''" ng-click="toggleUnFoldMode()">Print mode</md-button>
+  <md-button class="md-raised" ng-class="model.hasToShowLatestVersionsOnly ? 'md-warn' : ''" ng-click="showLatestVersionsOnly()">Latest versions only</md-button>
+  <md-card class="search">
     <md-input-container style="padding-bottom: 0px;">
       <label><i class="fa fa-search"></i> Resource name</label>
       <input ng-model="model.search.searchText">
