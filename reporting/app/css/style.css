@@ -105,4 +105,5 @@ md-divider.md-default-theme {
 
 .mock-image {
   width: 33.33%;
+  cursor: pointer;
 }
