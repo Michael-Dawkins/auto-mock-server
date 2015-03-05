@@ -8,6 +8,8 @@ var resourcesExposed = [];
 // global config
 var configFileContents;
 var mockDirectory;
+var httpCodes;
+var reportingDirectory;
 
 var setUpWatcher = require("./set-up-watcher.js");
 
@@ -22,7 +24,8 @@ function init(){
 	try {
 	  configFileContents = JSON.parse(fs.readFileSync("config.json", "utf8"));
 	  mockDirectory = configFileContents.mockDirectory;
-	  var reportingDirectory = configFileContents.reportingDirectory;
+	  reportingDirectory = configFileContents.reportingDirectory;
+	  httpCodes = configFileContents.httpCodes;
 	  //catch exceptions
 	} catch (e) {
 		//config.json not found
@@ -42,5 +45,5 @@ function init(){
 	console.log("\nvisit http://localhost:"+ port 
 		+ "/" + reportingDirectory +" to access the reporting app\n");
 
-	setUpWatcher.setUpWatcher(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory);
+	setUpWatcher.setUpWatcher(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory, httpCodes);
 }

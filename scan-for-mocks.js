@@ -7,7 +7,7 @@ module.exports = {
   scanForMocks: scanForMocks
 };
 
-function scanForMocks(dirPath, mockDirectory, app, resourcesExposed, reportingDirectory) {
+function scanForMocks(dirPath, mockDirectory, app, resourcesExposed, reportingDirectory, httpCodes) {
 
 	try {
 	  var dirContents = fs.readdirSync(dirPath);
@@ -23,7 +23,7 @@ function scanForMocks(dirPath, mockDirectory, app, resourcesExposed, reportingDi
 
 	// we look for config.json
 	if (_.contains(dirContents, "config.json")){
-		setUpMockedResource.setUpMockedResource(dirPath, mockDirectory, app, resourcesExposed, reportingDirectory);
+		setUpMockedResource.setUpMockedResource(dirPath, mockDirectory, app, resourcesExposed, reportingDirectory, httpCodes);
 	}
 	var directories = _.filter(dirContents, function(dirContent){
 		return fs.statSync(path.join(dirPath, dirContent)).isDirectory();
@@ -31,6 +31,6 @@ function scanForMocks(dirPath, mockDirectory, app, resourcesExposed, reportingDi
 
 	// recursive scan through folders
 	directories.forEach(function(directory){
-		scanForMocks(path.join(dirPath, directory), mockDirectory, app, resourcesExposed, reportingDirectory);
+		scanForMocks(path.join(dirPath, directory), mockDirectory, app, resourcesExposed, reportingDirectory, httpCodes);
 	});
   }

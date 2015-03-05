@@ -46,12 +46,16 @@
           <tab heading="SCREENS" ng-if="areThereImages(resource)">
               <div ng-include="'app/views/resource-screens.html'"></div>
           </tab>
+          <tab heading="HTTP CODES" ng-if="resource.httpCodes">
+             <div ng-include="'app/views/resource-http-codes.html'"></div>
+          </tab>
         </tabset>
       </div>
       <div ng-if="model.unFoldMode">
         <div ng-include="'app/views/resource-general.html'"></div>
         <div ng-include="'app/views/resource-schemas.html'"></div>
         <div ng-include="'app/views/resource-screens.html'"></div>
+        <div ng-include="'app/views/resource-http-codes.html'"></div>
       </div>
     </md-content>
   </md-card>

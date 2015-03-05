@@ -6,8 +6,8 @@ var _ = require('underscore');
 var triggerScanDebounced = _.debounce(triggerScan, 600);
 
 module.exports = {
-  setUpWatcher: function(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory) {
-  	triggerScan(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory);
+  setUpWatcher: function(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory, httpCodes) {
+  	triggerScan(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory, httpCodes);
   	var watcher = chokidar.watch(mockDirectory, {
 	  ignored: /[\/\\]\./, 
 	  persistent: true, 
@@ -15,13 +15,13 @@ module.exports = {
 	  followSymlinks : true
 	});
   	watcher.on('all', function(path) {
-		triggerScanDebounced(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory);
+		triggerScanDebounced(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory, httpCodes);
 	})
   }
 };
 
-function triggerScan(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory) {
+function triggerScan(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory, httpCodes) {
 	resourcesExposed = [];
-	scanForMocks.scanForMocks(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory);
+	scanForMocks.scanForMocks(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory, httpCodes);
 	writeReport.writeReport(resourcesExposed, reportingDirectory);
 }
