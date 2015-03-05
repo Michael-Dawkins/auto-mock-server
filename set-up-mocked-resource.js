@@ -178,7 +178,7 @@ module.exports = {
 		}
 
 		function getHttpCodes(resourceHttpCodes) {
-			return _.map(resourceHttpCodes, function(code){
+			return _.map(resourceHttpCodes, function(httpCode){
 				return _.findWhere(httpCodes, {code: httpCode});
 			})
 		}
