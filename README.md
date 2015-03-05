@@ -2,15 +2,16 @@
 A simple mock server that reads and exposes resources with minimal config
 
 ## How to setup the project :
-* configure config.json located at the project root
-type the following command :
+* configure config.json located at the project root.
+
+Type the following command :
 * bower install
 * node install
 
 ## How to launch the server :
-type the following command :
+Type the following command :
 * node auto_mock_server.js
-* shorthand : node start
+* shorthand : node start (in project directory)
 
 ## How to expose a mocked resource :
 A mock is currently composed of two files :
@@ -40,7 +41,7 @@ By default, the server runs on port 8000, you may pass an argument to the app to
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/{image}.["png", "jpeg", "jpeg", "gif"]
 
 ## How to send a POST request with a payload
-* Using curl or a tool like Postman, you can send POST requests to a WS of the mock server.
+* Using curl or a tool like Postman, you can send POST requests to a WS in the mock server.
 * Specify a payload in the body and it will be checked against the associated schema-payload.json
 * Check your Node.js console to see if the request is valid or not
 
