@@ -34,6 +34,7 @@ module.exports = {
 
 	// get mock.json and config.json contents
 	var mockedContent = fs.readFileSync(path.join(dirPath, "mock.json"), "utf8");
+	var mockedPayloadContent = fs.readFileSync(path.join(dirPath, "mock-payload.json"), "utf8");
 	var options = JSON.parse(fs.readFileSync(path.join(dirPath, "config.json"), "utf8"));
 
 	var readmeContent;
@@ -54,6 +55,7 @@ module.exports = {
 	var mockedSchema = fs.readFileSync(path.join(dirPath, "schema-mock.json"), "utf8");
 	var payloadSchema = fs.readFileSync(path.join(dirPath, "schema-payload.json"), "utf8");
 	var isJSONValid = checkJSONSchema.checkJSONSchema(JSON.parse(mockedContent), mockedSchema).valid;
+	var isJSONPayloadValid = checkJSONSchema.checkJSONSchema(JSON.parse(mockedContent), payloadSchema).valid;
 
 	if (mockedSchema) {
 		schemas.mock = mockedSchema;
@@ -101,10 +103,12 @@ module.exports = {
 	resourcesExposed.push({
 		resourcePath: resourcePath,
 		content: JSON.parse(mockedContent),
+		contentPayload : JSON.parse(mockedPayloadContent),
 		readme: readmeContent,
 		method: methodName,
 		version: versionApi,
 		valid: isJSONValid,
+		validPayload : isJSONPayloadValid,
 		images: imageFiles,
 		schemas: schemas,
 		options: options

@@ -29,8 +29,10 @@
       <h4 class="pastille method">{{resource.method}}</h2>
       <h4 class="pastille version">{{resource.version}}</h2>
       <h4 class="pastille sprint" ng-if="resource.options.sprint">Sprint {{ resource.options.sprint }}</h4>
-      <h4 class="pastille valid" ng-if="resource.valid"><i class="fa fa-check" style="color:white"></i> Valid</h4>
-      <h4 class="pastille invalid" ng-if="!resource.valid"><i class="fa fa-times" style="color:white"></i> Invalid</h4>
+      <h4 class="pastille valid" ng-if="resource.valid"><i class="fa fa-check" style="color:white"></i> Valid mock</h4>
+      <h4 class="pastille invalid" ng-if="!resource.valid"><i class="fa fa-times" style="color:white"></i> Invalid mock</h4>
+      <h4 class="pastille valid" ng-if="resource.validPayload"><i class="fa fa-check" style="color:white"></i> Valid payload</h4>
+      <h4 class="pastille invalid" ng-if="!resource.validPayload"><i class="fa fa-times" style="color:white"></i> Invalid Payload</h4>
       <div ng-if="!model.unFoldMode">
         <tabset>
           <tab heading="GENERAL">
