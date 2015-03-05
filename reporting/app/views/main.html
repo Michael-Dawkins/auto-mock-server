@@ -29,19 +29,21 @@
       <h4 class="pastille method">{{resource.method}}</h2>
       <h4 class="pastille version">{{resource.version}}</h2>
       <h4 class="pastille sprint" ng-if="resource.options.sprint">Sprint {{ resource.options.sprint }}</h4>
-      <h4 class="pastille valid" ng-if="resource.valid"><i class="fa fa-check" style="color:white"></i> Valid mock</h4>
-      <h4 class="pastille invalid" ng-if="!resource.valid"><i class="fa fa-times" style="color:white"></i> Invalid mock</h4>
-      <h4 class="pastille valid" ng-if="resource.validPayload"><i class="fa fa-check" style="color:white"></i> Valid payload</h4>
-      <h4 class="pastille invalid" ng-if="!resource.validPayload"><i class="fa fa-times" style="color:white"></i> Invalid Payload</h4>
+      <h4 class="pastille valid" ng-if="resource.valid && resource.schemas.mock"><i class="fa fa-check" style="color:white"></i> Valid mock</h4>
+      <h4 class="pastille invalid" ng-if="!resource.valid && resource.schemas.mock"><i class="fa fa-times" style="color:white"></i> Invalid mock</h4>
+      <h4 class="pastille invalid" ng-if="!resource.schemas.mock"><i class="fa fa-times" style="color:white"></i> No mock schema</h4>
+      <h4 class="pastille valid" ng-if="resource.validPayload && resource.schemas.payload"><i class="fa fa-check" style="color:white"></i> Valid payload</h4>
+      <h4 class="pastille invalid" ng-if="!resource.validPayload && resource.schemas.payload"><i class="fa fa-times" style="color:white"></i> Invalid Payload</h4>
+      <h4 class="pastille invalid" ng-if="!resource.schemas.payload"><i class="fa fa-times" style="color:white"></i> No payload schema</h4>
       <div ng-if="!model.unFoldMode">
         <tabset>
           <tab heading="GENERAL">
             <div ng-include="'app/views/resource-general.html'"></div>
           </tab>
-          <tab heading="SCHEMAS" ng-if="resource.schemas">
+          <tab heading="SCHEMAS" ng-if="resource.schemas.mock || resource.schemas.payload">
               <div ng-include="'app/views/resource-schemas.html'"></div>
           </tab>
-          <tab heading="SCREENS" ng-if="isThereImages(resource)">
+          <tab heading="SCREENS" ng-if="areThereImages(resource)">
               <div ng-include="'app/views/resource-screens.html'"></div>
           </tab>
         </tabset>

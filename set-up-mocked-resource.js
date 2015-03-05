@@ -3,107 +3,35 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 var checkJSONSchema = require("./check-json-schema.js");
+var imageTypes = [".png", ".jpeg", ".jpg", ".gif"];
 
 module.exports = {
   setUpMockedResource: function(dirPath, mockDirectory, app, resourcesExposed, reportingDirectory) {
-    // remove base path
-    //  resourcePath = 1.0\articles\GET
-	var resourcePath = dirPath.replace(mockDirectory + "\\", '');
-	// get first param : 1.0, 1.1 ...
-	// pathArray = ["1.0", "articles", "GET"]
-	var pathArray = resourcePath.split( '\\' );
-	var versionApi = pathArray[0];
 
-	// replace '\' with '/'
-	// resourcePath = 1.0/articles/GET
-	fullResourcePath = resourcePath.replace(new RegExp('\\' + path.sep, 'g'), '/');
-	// remove API version from path
-	// resourcePath = articles/GET
-	resourcePath = fullResourcePath.replace(versionApi + '/', '');
+  	getResourceParameters();
 
-	// get directory name : articles/user ...
-	// dirName =  articles
-	var dirName = path.dirname(resourcePath);
-
-	// get method name : GET, POST...
-	var methodName = path.basename(dirPath);
-	// resourcePath = /articles/GET
-	resourcePath = "/" + dirName;
-	// resourcePathWithAPIVersion = /1.0/articles
-	resourcePathWithAPIVersion = "/" + versionApi + resourcePath;
-
-	// get mock.json and config.json contents
-	var mockedContent = fs.readFileSync(path.join(dirPath, "mock.json"), "utf8");
-	var mockedPayloadContent = fs.readFileSync(path.join(dirPath, "mock-payload.json"), "utf8");
-	var options = JSON.parse(fs.readFileSync(path.join(dirPath, "config.json"), "utf8"));
-
-	var readmeContent;
-	// try to fetch config.json
-	try {
-	  readmeContent = fs.readFileSync(path.join(dirPath, "README.md"), "utf8");
-	  //catch exceptions
-	} catch (e) {
-		//config.json not found
-		if (e.code === 'ENOENT') {
-		  // console.log('README file not found!');
-		}
+	var mockedContent = getMockedContent();
+	if(mockedContent) {
+		mockedContent = JSON.parse(mockedContent);
 	}
-
-	var schemas = {mock:"",payload:""};
-
-	// get schema.json content and compare mock.json to check JSON validity
-	var mockedSchema = fs.readFileSync(path.join(dirPath, "schema-mock.json"), "utf8");
-	var payloadSchema = fs.readFileSync(path.join(dirPath, "schema-payload.json"), "utf8");
-	var isJSONValid = checkJSONSchema.checkJSONSchema(JSON.parse(mockedContent), mockedSchema).valid;
-	var isJSONPayloadValid = checkJSONSchema.checkJSONSchema(JSON.parse(mockedContent), payloadSchema).valid;
-
-	if (mockedSchema) {
-		schemas.mock = mockedSchema;
+	var mockedPayloadContent = getMockedPayloadContent();
+	if(mockedPayloadContent) {
+		mockedPayloadContent = JSON.parse(mockedPayloadContent);
 	}
-	if (payloadSchema) {
-		schemas.payload = payloadSchema;
-	}
+	var options = getOptions();
 
-	// get images in folder
-	var imageTypes = [".png", ".jpeg", ".jpg", ".gif"];
-	var imageFiles = [];
-	var listImageFiles = fs.readdirSync(dirPath);
-	for (var file in listImageFiles) {
-		if (_.contains(imageTypes, path.extname(listImageFiles[file]))) {
-			imageFiles.push(path.join("/", "reporting", "mocks", fullResourcePath, listImageFiles[file]));
-		}
-	}
-	if (imageFiles) {
-		app.use('/reporting/mocks/' + fullResourcePath, express.static(path.join(__dirname, "mocks", fullResourcePath)));
-	}
+	var readmeContent = getReadme();
+	getSchemas();
+	getImages();
+	exposeWS();
 
 	console.log("setting up " + (isJSONValid ? 'valid' : 'invalid') + " resource on path : " + resourcePathWithAPIVersion + ", method : " + methodName + ", version " + versionApi);
-	
-	// expose our WS, using the appropriate method
-	app[methodName.toLowerCase()](resourcePathWithAPIVersion, function(req, res) {
-		// send response
-	  res.send(mockedContent);
-	  if (methodName == "POST") {
-
-	  	// compare POST payload to mock JSON schema
-	  	console.log(resourcePathWithAPIVersion, " payload body : ",req.body);
-	  	if (payloadSchema) {
-			if (checkJSONSchema.checkJSONSchema(req.body, mockedSchema).valid) {
-				console.log("Valid payload !");
-			}
-			else {
-				console.log("Invalid payload !\n");
-				console.log(checkJSONSchema.checkJSONSchema(req.body, mockedSchema).errorLog);
-			}
-	  	}
-	  }
-	});
 
 	// fill our array with our mocks
 	resourcesExposed.push({
 		resourcePath: resourcePath,
-		content: JSON.parse(mockedContent),
-		contentPayload : JSON.parse(mockedPayloadContent),
+		content: mockedContent,
+		contentPayload : mockedPayloadContent,
 		readme: readmeContent,
 		method: methodName,
 		version: versionApi,
@@ -114,5 +42,134 @@ module.exports = {
 		options: options
 	});
 	return resourcesExposed;
+
+  	function getResourceParameters() {
+	    // remove base path
+	    //  resourcePath = 1.0\articles\GET
+		resourcePath = dirPath.replace(mockDirectory + "\\", '');
+		// get first param : 1.0, 1.1 ...
+		// pathArray = ["1.0", "articles", "GET"]
+		pathArray = resourcePath.split( '\\' );
+		versionApi = pathArray[0];
+		// replace '\' with '/'
+		// resourcePath = 1.0/articles/GET
+		fullResourcePath = resourcePath.replace(new RegExp('\\' + path.sep, 'g'), '/');
+		// remove API version from path
+		// resourcePath = articles/GET
+		resourcePath = fullResourcePath.replace(versionApi + '/', '');
+		// get directory name : articles/user ...
+		// dirName =  articles
+		dirName = path.dirname(resourcePath);
+		// get method name : GET, POST...
+		methodName = path.basename(dirPath);
+		// resourcePath = /articles/GET
+		resourcePath = "/" + dirName;
+		// resourcePathWithAPIVersion = /1.0/articles
+		resourcePathWithAPIVersion = "/" + versionApi + resourcePath;
+  	}
+
+	function getMockedContent(){
+		try {
+		  return mockedContent = fs.readFileSync(path.join(dirPath, "mock.json"), "utf8");
+		  //catch exceptions
+		} catch (e) {
+		}
+	}
+
+	function getMockedPayloadContent(){
+		try {
+		  return mockedPayloadContent = fs.readFileSync(path.join(dirPath, "mock-payload.json"), "utf8");
+		  //catch exceptions
+		} catch (e) {
+		}
+	}
+
+	function getOptions(){
+		try {
+		  return options = JSON.parse(fs.readFileSync(path.join(dirPath, "config.json"), "utf8"));
+		  //catch exceptions
+		} catch (e) {
+			//c onfig.json not found
+		}
+	}
+
+	function getReadme(){
+		// try to fetch README.md
+		try {
+		  return readmeContent = fs.readFileSync(path.join(dirPath, "README.md"), "utf8");
+		  //catch exceptions
+		} catch (e) {
+			// README.md not found
+		}
+	}
+
+	function getSchemas() {
+		schemas = {mock:"",payload:""};
+		var mockedSchema;
+		var payloadSchema;
+		try {
+			mockedSchema = fs.readFileSync(path.join(dirPath, "schema-mock.json"), "utf8");
+		  //catch exceptions
+		} catch (e) {
+			// schema-mock.json not found
+		}
+		try {
+			payloadSchema = fs.readFileSync(path.join(dirPath, "schema-payload.json"), "utf8");
+		  //catch exceptions
+		} catch (e) {
+			// schema-payload.json not found
+		}	
+		if (mockedSchema) {
+			mockedSchema = JSON.parse(mockedSchema);
+			schemas.mock = mockedSchema;
+		}
+		if (payloadSchema) {
+			payloadSchema = JSON.parse(payloadSchema);
+			schemas.payload = payloadSchema;
+		}
+		if (mockedContent && mockedSchema) {
+			isJSONValid = checkJSONSchema.checkJSONSchema(mockedContent, mockedSchema).valid;
+		}
+		if (mockedPayloadContent && payloadSchema) {
+			isJSONPayloadValid = checkJSONSchema.checkJSONSchema(mockedPayloadContent, payloadSchema).valid;
+		}
+	}
+
+	function getImages() {
+		// get images in folder
+		imageFiles = [];
+		var listImageFiles = fs.readdirSync(dirPath);
+		for (var file in listImageFiles) {
+			if (_.contains(imageTypes, path.extname(listImageFiles[file]))) {
+				imageFiles.push(path.join("/", "reporting", "mocks", fullResourcePath, listImageFiles[file]));
+			}
+		}
+		if (imageFiles) {
+			app.use('/reporting/mocks/' + fullResourcePath, express.static(path.join(__dirname, "mocks", fullResourcePath)));
+		}
+	}
+
+	function exposeWS() {
+
+		// expose our WS, using the appropriate method
+		app[methodName.toLowerCase()](resourcePathWithAPIVersion, function(req, res) {
+			// send response
+			res.send(mockedContent);
+			console.log(resourcePathWithAPIVersion);
+			if (methodName == "POST") {
+				// compare POST payload to mock JSON schema
+				console.log(resourcePathWithAPIVersion, " payload body : ",req.body);
+				if (payloadSchema) {
+					if (checkJSONSchema.checkJSONSchema(req.body, mockedSchema).valid) {
+						console.log("Valid payload !");
+					}
+					else {
+						console.log("Invalid payload !\n");
+						console.log(checkJSONSchema.checkJSONSchema(req.body, mockedSchema).errorLog);
+					}
+				}
+			}
+		});
+	}
   }
 };

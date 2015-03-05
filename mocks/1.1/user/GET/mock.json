@@ -1,4 +1,10 @@
-{
-	"username": "mon username de test",
-	"email": "michael.dawkins@capgemini.com"
-}
+[
+	{
+		"name": "télé",
+		"price": 143.23
+	},
+	{
+		"name": "écran",
+		"price": 14
+	}
+]
