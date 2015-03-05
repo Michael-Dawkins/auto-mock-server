@@ -4,12 +4,12 @@ var fs = require('fs');
 var path = require('path');
 var app;
 var resourcesExposed = [];
+
 // global config
 var configFileContents;
 var mockDirectory;
 
-var writeReport = require("./write-report.js");
-var scanForMocks = require("./scan-for-mocks.js");
+var setUpWatcher = require("./set-up-watcher.js");
 
 init();
 
@@ -42,7 +42,5 @@ function init(){
 	console.log("\nvisit http://localhost:"+ port 
 		+ "/" + reportingDirectory +" to access the reporting app\n");
 
-	scanForMocks.scanForMocks(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory);
-
-	writeReport.writeReport(resourcesExposed, reportingDirectory);
+	setUpWatcher.setUpWatcher(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory);
 }
