@@ -3,6 +3,7 @@ apiReport.controller("MainCtrl", function($scope, ResourceFilter, ResourcesModel
   init();
 
   function init(){
+    $scope.headerTitle = "Auto mock server";
     $scope.model = ResourcesModel.getModel();
     $scope.filterResourcesBasedOnVersion = ResourceFilter.filterResourcesBasedOnVersion;
     $scope.isThereImages = isThereImages;
