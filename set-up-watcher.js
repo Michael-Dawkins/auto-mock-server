@@ -1,6 +1,9 @@
 var chokidar = require('chokidar');
 var writeReport = require("./write-report.js");
 var scanForMocks = require("./scan-for-mocks.js");
+var _ = require('underscore');
+
+var triggerScanDebounced = _.debounce(triggerScan, 600);
 
 module.exports = {
   setUpWatcher: function(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory) {
@@ -12,7 +15,7 @@ module.exports = {
 	  followSymlinks : true
 	});
   	watcher.on('all', function(path) {
-		triggerScan(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory);
+		triggerScanDebounced(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory);
 	})
   }
 };
