@@ -39,6 +39,11 @@ By default, the server runs on port 8000, you may pass an argument to the app to
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/README.md
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/{image}.["png", "jpeg", "jpeg", "gif"]
 
+## How to send a POST request with a payload
+* Using curl or a tool like Postman, you can send POST requests to a WS of the mock server.
+* Specify a payload in the body and it will be checked against the associated schema-payload.json
+* Check your Node.js console to see if the request is valid or not
+
 Note : 
 You may use a directory tree structure to express a RESTFULL API, for example, if you create the folder "user" under the "mocks" folder,
 any resource inside the "user" folder will be exposed at localhost:8000/1.0/user
