@@ -24,10 +24,11 @@ By default, the server runs on port 8000, you may pass an argument to the app to
 * node auto_mock_server.js 8001
 
 ## Mock files :
-* config.json : informations about the mock
+* config.json : informations about the mock (mandatory)
 * mock.json : mock content
 * schema-mock.json : mock content JSON schema
 * schema-payload.json : payload content JSON schema
+* http-codes.json : forecast http codes
 * README.md : description of the mock of whatever in md format
 * images
 
@@ -37,6 +38,7 @@ By default, the server runs on port 8000, you may pass an argument to the app to
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/mock.json
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema-mock.json
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/schema-payload.json
+* /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/http-codes.json
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/README.md
 * /mocks/{version}/{methodName1}/{methodName2}/.../{methodNameX}/{methodType}/{image}.["png", "jpeg", "jpeg", "gif"]
 
