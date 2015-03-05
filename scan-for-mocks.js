@@ -8,7 +8,18 @@ module.exports = {
 };
 
 function scanForMocks(dirPath, mockDirectory, app, resourcesExposed, reportingDirectory) {
-	var dirContents = fs.readdirSync(dirPath);
+
+	try {
+	  var dirContents = fs.readdirSync(dirPath);
+	  //catch exceptions
+	} catch (e) {
+		//config.json not found
+		if (e.code === 'ENOENT') {
+		  console.log("Empty mocks folder. Please configure it in config.js");
+		} else {
+		  throw e;
+		}
+	}
 
 	// we look for config.json
 	if (_.contains(dirContents, "config.json")){
