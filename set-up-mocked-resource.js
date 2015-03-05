@@ -8,6 +8,8 @@ var imageTypes = [".png", ".jpeg", ".jpg", ".gif"];
 module.exports = {
   setUpMockedResource: function(dirPath, mockDirectory, app, resourcesExposed, reportingDirectory) {
 
+  	var resourcePathWithAPIVersion;
+  	var methodName;
   	getResourceParameters();
 
 	var mockedContent = getMockedContent();
@@ -21,6 +23,10 @@ module.exports = {
 	var options = getOptions();
 
 	var readmeContent = getReadme();
+
+	var schemas = {mock:"",payload:""};
+	var mockedSchema;
+	var payloadSchema;
 	getSchemas();
 	getImages();
 	exposeWS();
@@ -89,7 +95,7 @@ module.exports = {
 		  return options = JSON.parse(fs.readFileSync(path.join(dirPath, "config.json"), "utf8"));
 		  //catch exceptions
 		} catch (e) {
-			//c onfig.json not found
+			// config.json not found
 		}
 	}
 
@@ -104,9 +110,6 @@ module.exports = {
 	}
 
 	function getSchemas() {
-		schemas = {mock:"",payload:""};
-		var mockedSchema;
-		var payloadSchema;
 		try {
 			mockedSchema = fs.readFileSync(path.join(dirPath, "schema-mock.json"), "utf8");
 		  //catch exceptions
@@ -155,7 +158,6 @@ module.exports = {
 		app[methodName.toLowerCase()](resourcePathWithAPIVersion, function(req, res) {
 			// send response
 			res.send(mockedContent);
-			console.log(resourcePathWithAPIVersion);
 			if (methodName == "POST") {
 				// compare POST payload to mock JSON schema
 				console.log(resourcePathWithAPIVersion, " payload body : ",req.body);
