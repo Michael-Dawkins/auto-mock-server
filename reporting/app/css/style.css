@@ -109,7 +109,7 @@ md-toolbar.md-default-theme {
   top: 0px;
 }
 
-md-card.search.md-default-theme {
+.search {
   background-color: white;
   position: fixed;
   top: 78px;

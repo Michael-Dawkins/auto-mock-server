@@ -14,12 +14,12 @@
   </form>
   <md-button class="md-raised" ng-class="model.unFoldMode ? 'md-warn' : ''" ng-click="toggleUnFoldMode()">Print mode</md-button>
   <md-button class="md-raised" ng-class="model.hasToShowLatestVersionsOnly ? 'md-warn' : ''" ng-click="showLatestVersionsOnly()">Latest versions only</md-button>
-  <md-card class="search">
-    <md-input-container style="padding-bottom: 0px;">
-      <label><i class="fa fa-search"></i> Resource name</label>
-      <input ng-model="model.search.searchText">
-    </md-input-container>
-  </md-card>
+
+  <md-input-container class="search">
+    <label><i class="fa fa-search"></i> Resource name</label>
+    <input ng-model="model.search.searchText">
+  </md-input-container>
+
 </md-toolbar>
 <div class="doc-content">
   <md-card
