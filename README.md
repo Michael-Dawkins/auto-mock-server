@@ -11,7 +11,7 @@ Type the following command :
 ## How to launch the server :
 Type the following command :
 * node auto_mock_server.js
-* shorthand : node start (in project directory)
+* shorthand npm start (in project directory)
 
 ## How to expose a mocked resource :
 A mock is currently composed of two files :
