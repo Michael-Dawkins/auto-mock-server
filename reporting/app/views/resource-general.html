@@ -1,4 +1,7 @@
-          <h2 class="api-title">
+          <h2 ng-if="resource.method === 'GET'" class="api-title">
+            <i class="fa fa-cloud"></i> <a ng-href="{{resource.resourcePath}}">{{resource.resourcePath}}</a>
+          </h2>
+          <h2 ng-if="resource.method !== 'GET'" class="api-title">
             <i class="fa fa-cloud"></i> {{resource.resourcePath}}
           </h2>
           <h3 class="api-content">
