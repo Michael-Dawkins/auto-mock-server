@@ -65,12 +65,20 @@ module.exports = {
 		return resourcesExposed;
 
 		function getResourceParameters() {
-		    // remove base path
-		    //  resourcePath = 1.0\articles\GET
-			resourcePath = dirPath.replace(mockDirectory + "\\", '');
+	    // remove base path
+	    //  resourcePath = 1.0\articles\GET
+			if (path.sep === '\\') {
+				resourcePath = dirPath.replace(mockDirectory + "\\", '');
+			} else {
+				resourcePath = dirPath.replace(mockDirectory + path.sep, '');
+			}
 			// get first param : 1.0, 1.1 ...
 			// pathArray = ["1.0", "articles", "GET"]
-			pathArray = resourcePath.split( '\\' );
+			if (path.sep === '\\') {
+				pathArray = resourcePath.split( '\\' );
+			} else {
+				pathArray = resourcePath.split( path.sep );
+			}
 			versionApi = pathArray[0];
 			// replace '\' with '/'
 			// resourcePath = 1.0/articles/GET
@@ -136,7 +144,7 @@ module.exports = {
 			  //catch exceptions
 			} catch (e) {
 				// schema-payload.json not found
-			}	
+			}
 			if (mockedSchema) {
 				mockedSchema = JSON.parse(mockedSchema);
 				schemas.mock = mockedSchema;
