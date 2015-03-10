@@ -49,7 +49,7 @@ module.exports = {
 
 		// fill array with mocks
 		resourcesExposed.push({
-			resourcePath: resourcePath,
+			resourcePath: "/" + versionApi + resourcePath,
 			content: mockedContent,
 			contentPayload : mockedPayloadContent,
 			readme: readmeContent,
