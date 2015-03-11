@@ -148,10 +148,12 @@ module.exports = {
 			if (mockedSchema) {
 				mockedSchema = JSON.parse(mockedSchema);
 				schemas.mock = mockedSchema;
+				exposeMockedSchema(mockedSchema);
 			}
 			if (payloadSchema) {
 				payloadSchema = JSON.parse(payloadSchema);
 				schemas.payload = payloadSchema;
+				exposePayloadSchema(payloadSchema);
 			}
 			if (mockedContent && mockedSchema) {
 				isJSONValid = checkJSONSchema.checkJSONSchema(mockedContent, mockedSchema).valid;
@@ -159,6 +161,22 @@ module.exports = {
 			if (mockedPayloadContent && payloadSchema) {
 				isJSONPayloadValid = checkJSONSchema.checkJSONSchema(mockedPayloadContent, payloadSchema).valid;
 			}
+		}
+
+		function exposeMockedSchema(mockedSchema) {
+			// expose our WS, using the appropriate method
+			app[methodName.toLowerCase()]("/schema-mock"+resourcePathWithAPIVersion, function(req, res) {
+				// send response
+				res.send(mockedSchema);
+			});
+		}
+
+		function exposePayloadSchema(payloadSchema) {
+			// expose our WS, using the appropriate method
+			app[methodName.toLowerCase()]("/schema-payload"+resourcePathWithAPIVersion, function(req, res) {
+				// send response
+				res.send(payloadSchema);
+			});
 		}
 
 		function getImages() {
