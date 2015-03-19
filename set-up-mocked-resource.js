@@ -148,12 +148,10 @@ module.exports = {
 			if (mockedSchema) {
 				mockedSchema = JSON.parse(mockedSchema);
 				schemas.mock = mockedSchema;
-				exposeMockedSchema(mockedSchema);
 			}
 			if (payloadSchema) {
 				payloadSchema = JSON.parse(payloadSchema);
 				schemas.payload = payloadSchema;
-				exposePayloadSchema(payloadSchema);
 			}
 			if (mockedContent && mockedSchema) {
 				isJSONValid = checkJSONSchema.checkJSONSchema(mockedContent, mockedSchema).valid;
@@ -210,6 +208,13 @@ module.exports = {
 		}
 
 		function exposeWS() {
+
+			if (mockedSchema) {
+				exposeMockedSchema(mockedSchema);
+			}
+			if (payloadSchema) {
+				exposePayloadSchema(payloadSchema);
+			}
 
 			// expose our WS, using the appropriate method
 			app[methodName.toLowerCase()](resourcePathWithAPIVersion, function(req, res) {
