@@ -163,7 +163,7 @@ module.exports = {
 
 		function exposeMockedSchema(mockedSchema) {
 			// expose our WS, using the appropriate method
-			app[methodName.toLowerCase()]("/schema-mock"+resourcePathWithAPIVersion, function(req, res) {
+			app.get("/schema-mock"+resourcePathWithAPIVersion, function(req, res) {
 				// send response
 				res.send(mockedSchema);
 			});
@@ -171,7 +171,8 @@ module.exports = {
 
 		function exposePayloadSchema(payloadSchema) {
 			// expose our WS, using the appropriate method
-			app[methodName.toLowerCase()]("/schema-payload"+resourcePathWithAPIVersion, function(req, res) {
+			console.log("schemas payload exposed at : " + "/schema-payload"+resourcePathWithAPIVersion);
+			app.get("/schema-payload"+resourcePathWithAPIVersion, function(req, res) {
 				// send response
 				res.send(payloadSchema);
 			});
@@ -224,12 +225,12 @@ module.exports = {
 					// compare POST payload to mock JSON schema
 					console.log(resourcePathWithAPIVersion, " payload body : ",req.body);
 					if (payloadSchema) {
-						if (checkJSONSchema.checkJSONSchema(req.body, mockedSchema).valid) {
+						if (checkJSONSchema.checkJSONSchema(req.body, payloadSchema).valid) {
 							console.log("Valid payload !");
 						}
 						else {
 							console.log("Invalid payload !\n");
-							console.log(checkJSONSchema.checkJSONSchema(req.body, mockedSchema).errorLog);
+							console.log(checkJSONSchema.checkJSONSchema(req.body, payloadSchema).errorLog);
 						}
 					}
 				}
