@@ -217,6 +217,16 @@ module.exports = {
 				exposePayloadSchema(payloadSchema);
 			}
 
+			//Add optional url parameters
+			var paramString = "";
+			var params = options.parametres;
+			if (params){
+				params.forEach(function(param){
+					paramString += "/:" + param.nom.replace(" ", "");
+				});
+			}
+			resourcePathWithAPIVersion += paramString;
+
 			// expose our WS, using the appropriate method
 			app[methodName.toLowerCase()](resourcePathWithAPIVersion, function(req, res) {
 				// send response
