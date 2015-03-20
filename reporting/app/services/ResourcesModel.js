@@ -6,6 +6,7 @@ apiReport.factory("ResourcesModel", function(GeneratedData){
 
 	function init(){
 		model.generatedData = GeneratedData.getData();
+		model.generatedDataGlobalReadme = GeneratedData.getReadme();
 		model.hasToShowLatestVersionsOnly = false;
 		model.unFoldMode = false;
 		model.search = {

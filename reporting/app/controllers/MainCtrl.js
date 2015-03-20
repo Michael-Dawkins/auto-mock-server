@@ -6,6 +6,7 @@ apiReport.controller("MainCtrl", function($scope, ResourceFilter, ResourcesModel
     $scope.headerTitle = "Auto mock server";
     $scope.model = ResourcesModel.getModel();
     $scope.filterResourcesBasedOnVersion = ResourceFilter.filterResourcesBasedOnVersion;
+    $scope.readMeCollapsed = true;
     $scope.areThereImages = areThereImages;
     $scope.openLightBox = openLightBox;
     exposeToggleMethods();
