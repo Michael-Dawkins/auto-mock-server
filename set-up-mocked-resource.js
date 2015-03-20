@@ -222,7 +222,8 @@ module.exports = {
 			var params = options.parametres;
 			if (params){
 				params.forEach(function(param){
-					paramString += "/:" + param.nom.replace(" ", "");
+					var space = new RegExp(' ', 'g');
+					paramString += "/:" + param.nom.replace(space, "");
 				});
 			}
 			resourcePathWithAPIVersion += paramString;
