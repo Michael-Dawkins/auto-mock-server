@@ -23,5 +23,5 @@ module.exports = {
 function triggerScan(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory, httpCodes) {
 	resourcesExposed = [];
 	scanForMocks.scanForMocks(mockDirectory, mockDirectory, app, resourcesExposed, reportingDirectory, httpCodes);
-	writeReport.writeReport(resourcesExposed, reportingDirectory);
+	writeReport.writeReport(resourcesExposed, reportingDirectory, mockDirectory);
 }
