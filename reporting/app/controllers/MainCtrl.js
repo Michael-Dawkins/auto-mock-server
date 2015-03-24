@@ -9,6 +9,7 @@ apiReport.controller("MainCtrl", function($scope, ResourceFilter, ResourcesModel
     $scope.readMeCollapsed = true;
     $scope.areThereImages = areThereImages;
     $scope.openLightBox = openLightBox;
+    $scope.displayReadme = displayReadme;
     exposeToggleMethods();
     exposeSearchMethods();
   }
@@ -25,6 +26,19 @@ apiReport.controller("MainCtrl", function($scope, ResourceFilter, ResourcesModel
     $scope.toggleUnFoldMode = function() {
       ResourcesModel.getModel().unFoldMode = !ResourcesModel.getModel().unFoldMode;
     };
+
+    $scope.toggleReadmeMode = function() {
+      $scope.readMeCollapsed = !$scope.readMeCollapsed;
+    };
+  }
+
+  function displayReadme() {
+    if (!$scope.readMeCollapsed || $scope.model.unFoldMode) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   function areThereImages(resource) {

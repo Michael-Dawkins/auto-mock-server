@@ -25,9 +25,9 @@
 
   <md-card ng-if="model.generatedDataGlobalReadme" class="md-whiteframe-z2 medium-margin fast-anim">
     <md-content class="md-padding" >
-      <md-button style="display:inline-block;" class="md-raised" ng-click="readMeCollapsed = !readMeCollapsed">{{readMeCollapsed ? 'Show' : 'Hide'}}</md-button>
+      <md-button style="display:inline-block;" class="md-raised" ng-click="toggleReadmeMode()">{{readMeCollapsed ? 'Show' : 'Hide'}}</md-button>
       <h2 style="display:inline-block;">README</h2>
-      <div btf-markdown="model.generatedDataGlobalReadme" ng-hide="readMeCollapsed"></div>
+      <div btf-markdown="model.generatedDataGlobalReadme" ng-show="displayReadme()"></div>
     </md-content>
   </md-card>
 
@@ -62,7 +62,7 @@
       </div>
       <div ng-if="model.unFoldMode">
         <div ng-include="'app/views/resource-general.html'"></div>
-        <div ng-include="'app/views/resource-schemas.html'"></div>
+        <!--<div ng-include="'app/views/resource-schemas.html'"></div>-->
         <div ng-include="'app/views/resource-screens.html'"></div>
         <div ng-include="'app/views/resource-http-codes.html'"></div>
       </div>
