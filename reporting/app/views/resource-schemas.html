@@ -1,8 +1,8 @@
-          <h3 ng-if="resource.schemas.mock">
-            <i class="fa fa-database"></i> Mock schema : 
-            <json-explorer data="resource.schemas.mock" collapsed="!model.unFoldMode"></json-explorer>
-          </h3>
-          <h3 ng-if="resource.schemas.payload">
-            <i class="fa fa-cogs"></i> Payload schema :
-            <json-explorer data="resource.schemas.payload" collapsed="!model.unFoldMode"></json-explorer>
-          </h3>
+<h3 ng-if="resource.schemas.mock">
+<i class="fa fa-database"></i> Mock schema :
+  <div style="white-space: pre-wrap;">{{formatJson(resource.schemas.mock)}}</div>
+</h3>
+<h3 ng-if="resource.schemas.payload">
+<i class="fa fa-cogs"></i> Payload schema :
+  <div style="white-space: pre-wrap;">{{formatJson(resource.schemas.payload)}}</div>
+</h3>

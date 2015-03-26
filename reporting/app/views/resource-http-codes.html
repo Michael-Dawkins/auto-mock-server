@@ -1,4 +1,4 @@
           <h3 ng-if="resource.httpCodes">
             <i class="fa fa-cogs"></i> HTTP codes : 
-            <json-explorer data="resource.httpCodes" collapsed="!model.unFoldMode"></json-explorer>
+              <div style="white-space: pre-wrap;">{{formatJson(resource.httpCodes)}}</div>
           </h3>

@@ -10,13 +10,18 @@ apiReport.controller("MainCtrl", function($scope, ResourceFilter, ResourcesModel
     $scope.areThereImages = areThereImages;
     $scope.openLightBox = openLightBox;
     $scope.displayReadme = displayReadme;
+    $scope.formatJson = formatJson;
     exposeToggleMethods();
     exposeSearchMethods();
   }
 
+  function formatJson(json){
+    return JSON.stringify(json, null, 2);
+  }
+
   function openLightBox(resource, index) {
     Lightbox.openModal(resource.images, index);
-  };
+  }
 
   function exposeToggleMethods() {
     $scope.showLatestVersionsOnly = function() {

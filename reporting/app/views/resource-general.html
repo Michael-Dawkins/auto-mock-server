@@ -9,13 +9,13 @@
             <div btf-markdown="resource.readme"></div>
             <md-divider ng-if="resource.readme"></md-divider>
             <i class="fa fa-database"></i> Content: 
-            <json-explorer data="resource.content" collapsed="!model.unFoldMode"></json-explorer>
+            <div style="white-space: pre-wrap;">{{formatJson(resource.content)}}</div>
           </h3>
           <h3>
             <i class="fa fa-cogs"></i> Options:
-            <json-explorer data="resource.options" collapsed="!model.unFoldMode"></json-explorer>
+              <div style="white-space: pre-wrap;">{{formatJson(resource.options)}}</div>
           </h3>
           <h3 class="api-content">
-            <i class="fa fa-database"></i> Payload content: 
-            <json-explorer data="resource.contentPayload" collapsed="!model.unFoldMode"></json-explorer>
+            <i class="fa fa-database"></i> Payload content:
+              <div style="white-space: pre-wrap;">{{formatJson(resource.contentPayload)}}</div>
           </h3>
